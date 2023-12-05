@@ -1,10 +1,10 @@
-import React from 'react';
-
 function Footer() {
     return (
-        <footer>
-            <p>Footer</p>
-        </footer>
+    <>
+    <footer className="footer">
+        <h3>Footer</h3>
+    </footer>
+    </>
     );
 }
 

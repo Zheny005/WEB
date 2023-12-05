@@ -1,10 +1,12 @@
-import React from 'react';
-
 function Body() {
     return (
-        <section>
-            <p>Body</p>
-        </section>
+    <>
+    <body>
+        <div className="body">
+            <h2>Body</h2>
+        </div>
+    </body>
+    </>
     );
 }
 
