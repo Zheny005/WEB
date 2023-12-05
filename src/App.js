@@ -1,43 +1,62 @@
-import React from 'react';
-import { useState } from 'react';
-import { Header, Body, Footer, Menu } from './Components/import';
-import './App.css';
+import React, { useState } from 'react';
+import ProductPage from './components/Main.jsx';
+import './css/Main.css';
 
 function App() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [comments, setComments] = useState([]);
+  const products = [
+    { id: 1, name: 'Товар 1', description: 'Опис товару 1.' },
+    { id: 2, name: 'Товар 2', description: 'Опис товару 2.' },
+    { id: 3, name: 'Товар 3', description: 'Опис товару 3.' },
+  ];
 
-  const [items, setItems] = useState([
-    { id: 1, name: 'Mercedes-Benz w223', isChecked: false },
-    { id: 2, name: 'Mercedes-Benz w222', isChecked: false },
-    { id: 3, name: 'Mercedes-Benz w221', isChecked: false },
-    { id: 4, name: 'Mercedes-Benz w220', isChecked: false },
-  ]);
+  const handleProductSelect = (productId) => {
+    const product = products.find((p) => p.id === productId);
+    setSelectedProduct(product);
+    // Зберігаємо коментарі для кожного товару окремо
+    setComments((prevComments) => ({
+      ...prevComments,
+      [productId]: prevComments[productId] || [],
+    }));
+  };
 
-  const handleCheckboxChange = (itemId) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, isChecked: !item.isChecked } : item
-      )
-    );
+  const handleCommentAdd = (comment) => {
+    if (selectedProduct) {
+      setComments((prevComments) => ({
+        ...prevComments,
+        [selectedProduct.id]: [...(prevComments[selectedProduct.id] || []), comment],
+      }));
+    }
   };
 
   return (
     <div className="app">
-      <Header />
-      <Body />
-      <Footer />
-
-      <ul className='ul-product'>
-        {items.map((item) => (
-          <li key={item.id}>
-            <input
-              type="checkbox"
-              checked={item.isChecked}
-              onChange={() => handleCheckboxChange(item.id)}
-            />
-            {item.name}
+      <h1>Виберіть товар:</h1>
+      <ul className="ul-product">
+        {products.map((product) => (
+          <li key={product.id}>
+            <label>
+              <input
+                type="radio"
+                name="product"
+                value={product.id}
+                checked={selectedProduct?.id === product.id}
+                onChange={() => handleProductSelect(product.id)}
+              />
+              {product.name}
+            </label>
           </li>
         ))}
       </ul>
+
+      {selectedProduct && (
+        <ProductPage
+          product={selectedProduct}
+          comments={comments[selectedProduct.id] || []}
+          onCommentAdd={handleCommentAdd}
+        />
+      )}
     </div>
   );
 }
