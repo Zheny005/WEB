@@ -1,21 +1,27 @@
-import React from 'react';
-import Header from './Components/Header';
-import Body from './Components/Body';
-import Footer from './Components/Footer';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthenticationContext';
+import { BasketProvider } from './context/BasketContext';
 import './App.css';
+import { Header, Body, Footer } from './components/import';
+
 
 function App() {
-    return ( <
-        div className = "App" >
-        <
-        Header / >
-        <
-        Body / >
-        <
-        Footer / >
-        <
-        /div>
-    );
+  const [isLogged, setIsLogged] = useState(false);
+
+  const toggleLogin = () => {
+    setIsLogged(prevIsLogged => !prevIsLogged);
+  };
+
+return (
+    <AuthProvider>
+      <BasketProvider>
+        <div className="app">
+          <Body isLogged={isLogged} toggleLogin={toggleLogin} />
+        </div>
+      </BasketProvider>
+    </AuthProvider>
+  );
 }
 
 export default App;

@@ -1,0 +1,40 @@
+.menu-container {
+  font-family: Arial, sans-serif;
+}
+
+.ul-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #ccc;
+}
+
+.ul-menu li {
+  padding: 10px 20px;
+  position: relative;
+  text-decoration: none;
+}
+
+.ul-menu li:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.ul-menu li a {
+  text-decoration: none; 
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
